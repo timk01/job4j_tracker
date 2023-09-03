@@ -18,7 +18,7 @@ public class TriangleTest {
     }
 
     @Test
-    public void whenFirst1And1SecondMinus2And0ThirdMinus2AndMinus2Then14Dot485() {
+    public void whenFirst1And1SecondMinus2And4ThirdMinus2AndMinus2Then9() {
         Point a = new Point(1, 1);
         Point b = new Point(-2, 4);
         Point c = new Point(-2, -2);
