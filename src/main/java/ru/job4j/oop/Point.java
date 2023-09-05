@@ -1,7 +1,6 @@
 package ru.job4j.oop;
 
 import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
 
 public class Point {
 
@@ -19,16 +18,12 @@ public class Point {
        this.z = z;
     }
 
-    private double getSquareDistance(Point that) {
-        return pow(this.x - that.x, 2) + pow(this.y - that.y, 2);
-    }
-
     public double distance(Point that) {
-        return sqrt(getSquareDistance(that));
+        return Math.sqrt(pow(this.x - that.x, 2) + pow(this.y - that.y, 2));
     }
 
     public double distance3d(Point that) {
-        return Math.sqrt(getSquareDistance(that) + pow(this.z - that.z, 2));
+        return Math.sqrt(pow(this.x - that.x, 2) + pow(this.y - that.y, 2) + pow(this.z - that.z, 2));
     }
 
     public void info() {
