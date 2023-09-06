@@ -9,21 +9,39 @@ public class Library {
         Book fourthBook = new Book("Design manual", 355);
         Book fifthBook = new Book("Clean code", 355);
         Book[] books = new Book[] {firstBook, secondBook, thirdBook, fourthBook, fifthBook};
-        System.out.println("All books in library");
-        for (int i = 0; i < books.length; i++) {
-            System.out.println("book name: " + books[i].getName() + " book size: " + books[i].getPage());
-        }
-        swapBooks(books, 0, 2);
-        System.out.println(System.lineSeparator() + "Books with name \"Clean code\"");
-        for (int i = 0; i < books.length; i++) {
-            Book currentBook = books[i];
-            if ("Clean code".equals(currentBook.getName())) {
-                System.out.println(currentBook.getName() + ", " + currentBook.getPage());
-            }
-        }
+        printBooks(books);
+        swapBooks(books, 0, 3);
+        printBooks(books);
+        String name = "Clean code";
+        printBooksWithName(books, name);
     }
 
-    private static void swapBooks(Book[] books, int from, int to) {
+    public static void printBooks(Book[] books) {
+        System.out.println("All books in library");
+        for (int i = 0; i < books.length; i++) {
+            Book currentBook = books[i];
+            printABook(currentBook);
+        }
+        System.out.println();
+    }
+
+    public static void printBooksWithName(Book[] books, String name) {
+        System.out.println("All books in library with name " + name);
+        for (int i = 0; i < books.length; i++) {
+            Book currentBook = books[i];
+            if (name.equals(currentBook.getName())) {
+                printABook(currentBook);
+            }
+        }
+        System.out.println();
+    }
+
+    public static void printABook(Book currentBook) {
+        System.out.println("book name: " + currentBook.getName()
+                + "; book size: "  + currentBook.getPage());
+    }
+
+    public static void swapBooks(Book[] books, int from, int to) {
         Book temp = books[from];
         books[from] = books[to];
         books[to] = temp;
