@@ -3,6 +3,9 @@ package ru.job4j.pojo;
 public class ShopDrop {
     public static Product[] delete(Product[] products, int index) {
         for (int i = index; i < products.length - 1; i++) {
+            if (products[i] == null && products[i + 1] == null) {
+                continue;
+            }
             products[i] = products[i + 1];
             if (products[i] != null && i == products.length - 2) {
                 products[i + 1] = null;
