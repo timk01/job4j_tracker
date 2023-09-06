@@ -18,5 +18,9 @@ public class DropArray {
         for (int index = 0; index < rsl.length; index++) {
             System.out.println(rsl[index]);
         }
+
+        String[] names2 = {"Petr", null, "Ivan", "Stepan", "Fedor"};
+        System.arraycopy(names2, 2, names2, 1, 3);
+        System.out.println(Arrays.toString(names2));
     }
 }
