@@ -6,9 +6,8 @@ public class Library {
         Book firstBook = new Book("noname", 100);
         Book secondBook = new Book("Clean code", 500);
         Book thirdBook = new Book(null, -1);
-        Book fourthBook = new Book("Design manual", 355);
-        Book fifthBook = new Book("Clean code", 355);
-        Book[] books = new Book[] {firstBook, secondBook, thirdBook, fourthBook, fifthBook};
+        Book fourthBook = new Book("Clean code", 355);
+        Book[] books = new Book[] {firstBook, secondBook, thirdBook, fourthBook};
         printBooks(books);
         swapBooks(books, 0, 3);
         printBooks(books);
