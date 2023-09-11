@@ -17,12 +17,12 @@ public class MagicBall {
         MagicBall magicBall = new MagicBall(scanner);
         System.out.print("Я великий Оракул. Что ты хочешь узнать? ");
         String question = magicBall.getQuestion();
-        int answer = magicBall.randomizeNumber(THRESHOLD);
+        int answer = magicBall.randomizeNumber();
         magicBall.getOraculAnswer(answer);
     }
 
-    public int randomizeNumber(int till) {
-        return random.nextInt(till);
+    public int randomizeNumber() {
+        return random.nextInt(THRESHOLD);
     }
 
     public String getQuestion() {
