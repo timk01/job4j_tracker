@@ -4,40 +4,18 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MagicBall {
-    private static final int THRESHOLD = 3;
-    private Scanner scanner;
-    private Random random = new Random();
-
-    public MagicBall(Scanner scanner) {
-        this.scanner = scanner;
-    }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        MagicBall magicBall = new MagicBall(scanner);
         System.out.print("Я великий Оракул. Что ты хочешь узнать? ");
-        String question = magicBall.getQuestion();
-        int answer = magicBall.randomizeNumber();
-        magicBall.getOraculAnswer(answer);
-    }
-
-    public int randomizeNumber() {
-        return random.nextInt(THRESHOLD);
-    }
-
-    public String getQuestion() {
-        String s = null;
-        if (scanner.hasNextLine()) {
-             s = scanner.nextLine();
-        }
-        return s;
-    }
-
-    public void getOraculAnswer(int guessedNumber) {
-        switch (guessedNumber) {
-            case 0 -> System.out.println("Да");
-            case 1 -> System.out.println("Нет");
-            default -> System.out.println("Может быть");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        int answer  = new Random().nextInt(3);
+        if (answer  == 0) {
+            System.out.println("Да");
+        } else if (answer == 1) {
+            System.out.println("Нет");
+        } else {
+            System.out.println("Может быть");
         }
     }
 }
