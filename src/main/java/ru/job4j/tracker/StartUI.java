@@ -68,8 +68,7 @@ public class StartUI {
                 } else {
                     System.out.println("Cannot find items with name: " + name);
                 }
-            }
-            if (select == 6) {
+            } else if (select == 6) {
                 run = false;
             }
         }
