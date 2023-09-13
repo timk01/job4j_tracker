@@ -2,6 +2,7 @@ package ru.job4j.poly;
 
 public class Bus implements Transport {
 
+    private final static int FUEL_PRICE = 50;
     private int fuel;
     private int capacity;
     private String name;
@@ -26,6 +27,6 @@ public class Bus implements Transport {
 
     @Override
     public int reload(int fuel) {
-        return this.fuel + fuel;
+        return fuel * FUEL_PRICE;
     }
 }
