@@ -3,15 +3,11 @@ package ru.job4j.poly;
 public class Bus implements Transport {
 
     private final static int FUEL_PRICE = 50;
-    private int fuel;
     private int capacity;
-    private String name;
     private String route;
 
-    public Bus(int fuel, int capacity, String name, String route) {
-        this.fuel = fuel;
+    public Bus(int capacity, String route) {
         this.capacity = capacity;
-        this.name = name;
         this.route = route;
     }
 
