@@ -4,7 +4,7 @@ public class FindItemByIdAction implements UserAction {
 
     private final Input input;
     private final Output out;
-    private Tracker tracker;
+    private final Tracker tracker;
 
     public FindItemByIdAction(Input input, Output out, Tracker tracker) {
         this.input = input;

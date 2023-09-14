@@ -3,7 +3,7 @@ package ru.job4j.tracker;
 public class ShowAllItemsAction implements UserAction {
 
     private final Output out;
-    private Tracker tracker;
+    private final Tracker tracker;
 
     public ShowAllItemsAction(Output out, Tracker tracker) {
         this.out = out;
