@@ -4,12 +4,10 @@ public class StartUI {
 
     private final Input input;
     private final Output out;
-    private Tracker tracker;
 
-    public StartUI(Input input, Output out, Tracker tracker) {
+    public StartUI(Input input, Output out) {
         this.input = input;
         this.out = out;
-        this.tracker = tracker;
     }
 
     public void init(UserAction[] actions) {
@@ -42,6 +40,6 @@ public class StartUI {
                 new FindItemsByNameAction(input, output, tracker),
                 new ExitProgramAction(output)
         };
-        new StartUI(input, output, tracker).init(actions);
+        new StartUI(input, output).init(actions);
     }
 }
