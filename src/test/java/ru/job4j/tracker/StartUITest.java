@@ -13,10 +13,10 @@ public class StartUITest {
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateItemAction(out),
+                new CreateItemAction(in, out, tracker),
                 new ExitProgramAction(out)
         };
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(in, out, tracker).init(actions);
         String ln = System.lineSeparator();
         assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
     }
@@ -32,10 +32,10 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(oldItem.getId()), replacedItem, "1"}
         );
         UserAction[] actions = {
-                new EditItemAction(out),
+                new EditItemAction(in, out, tracker),
                 new ExitProgramAction(out)
         };
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(in, out, tracker).init(actions);
         assertThat(tracker.findById(oldItem.getId()).getName()).isEqualTo(replacedItem);
     }
 
@@ -47,12 +47,12 @@ public class StartUITest {
                 new String[] {"0", "1", "replaced item", "1"}
         );
         UserAction[] actions = {
-                new EditItemAction(out),
+                new EditItemAction(in, out, tracker),
                 new ExitProgramAction(out)
         };
         Item[] items = tracker.findAll();
         assertThat(items).isEmpty();
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(in, out, tracker).init(actions);
         items = tracker.findAll();
         assertThat(items).isEmpty();
         Item item = tracker.findById(1);
@@ -71,10 +71,10 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(replacedItemId), replacedItem.getName(), "1"}
         );
         UserAction[] actions = {
-                new EditItemAction(out),
+                new EditItemAction(in, out, tracker),
                 new ExitProgramAction(out)
         };
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(in, out, tracker).init(actions);
         replacedItem = tracker.findById(replacedItemId);
         assertThat(replacedItem).isNull();
         assertThat(tracker.findById(oldItem.getId()).getName()).isEqualTo(oldItem.getName());
@@ -89,10 +89,10 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(item.getId()), "1"}
         );
         UserAction[] actions = {
-                new DeleteItemAction(out),
+                new DeleteItemAction(in, out, tracker),
                 new ExitProgramAction(out)
         };
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(in, out, tracker).init(actions);
         assertThat(tracker.findById(item.getId())).isNull();
     }
 
@@ -104,12 +104,12 @@ public class StartUITest {
                 new String[] {"0", "1", "1"}
         );
         UserAction[] actions = {
-                new DeleteItemAction(out),
+                new DeleteItemAction(in, out, tracker),
                 new ExitProgramAction(out)
         };
         Item[] items = tracker.findAll();
         assertThat(items).isEmpty();
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(in, out, tracker).init(actions);
         items = tracker.findAll();
         assertThat(items).isEmpty();
         assertThat(tracker.findById(1)).isNull();
@@ -125,10 +125,10 @@ public class StartUITest {
                 new String[] {"0", String.valueOf(deletedItemId), "1"}
         );
         UserAction[] actions = {
-                new DeleteItemAction(out),
+                new DeleteItemAction(in, out, tracker),
                 new ExitProgramAction(out)
         };
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(in, out, tracker).init(actions);
         assertThat(tracker.findAll()).isNotEmpty();
         assertThat(tracker.findById(1000)).isNull();
         assertThat(tracker.findById(item.getId()).getName()).isEqualTo(item.getName());
@@ -145,7 +145,7 @@ public class StartUITest {
                 new ExitProgramAction(out)
         };
         String ln = System.lineSeparator();
-        new StartUI(out).init(in, tracker, actions);
+        new StartUI(in, out, tracker).init(actions);
         assertThat(out.toString()).isEqualTo(
                 "Menu." + ln
                         + "0. Exit" + ln

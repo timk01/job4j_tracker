@@ -2,10 +2,14 @@ package ru.job4j.tracker;
 
 public class FindItemsByNameAction implements UserAction {
 
+    private final Input input;
     private final Output out;
+    private Tracker tracker;
 
-    public FindItemsByNameAction(Output out) {
+    public FindItemsByNameAction(Input input, Output out, Tracker tracker) {
+        this.input = input;
         this.out = out;
+        this.tracker = tracker;
     }
 
     @Override
@@ -14,7 +18,7 @@ public class FindItemsByNameAction implements UserAction {
     }
 
     @Override
-    public boolean execute(Input input, Tracker tracker) {
+    public boolean execute() {
         out.println("=== Find items by name ===");
         String name = input.askStr("Enter name: ");
         Item[] byName = tracker.findByName(name);
