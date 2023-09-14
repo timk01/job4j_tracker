@@ -10,11 +10,12 @@ public class ExitProgramAction implements UserAction {
 
     @Override
     public String name() {
-        return "Exit";
+        return "Exit Program";
     }
 
     @Override
     public boolean execute() {
+        out.println("=== Exit Program ===");
         return false;
     }
 }
