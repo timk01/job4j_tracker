@@ -296,7 +296,7 @@ public class ConsoleUITest {
         Item second = tracker.add(new Item("first item"));
         Item third = tracker.add(new Item("another item"));
         Input in = new StubInput(
-                new String[]{"0", String.valueOf(first.getName()), "1"}
+                new String[]{"0", first.getName(), "1"}
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
@@ -327,7 +327,7 @@ public class ConsoleUITest {
         Item third = tracker.add(new Item("another item"));
         Item fourthNotAdded = new Item("another one item");
         Input in = new StubInput(
-                new String[]{"0", String.valueOf(fourthNotAdded.getName()), "1"}
+                new String[]{"0", fourthNotAdded.getName(), "1"}
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
