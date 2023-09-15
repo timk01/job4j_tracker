@@ -17,6 +17,10 @@ public class ConsoleUI {
         while (run) {
             showMenu(actions);
             int select = input.askInt("Select: ");
+            if (select < 0 || select >= actions.length) {
+                out.println("Wrong input, you can select from 0 and till " + (actions.length - 1));
+                continue;
+            }
             UserAction action = actions[select];
             run = action.execute();
         }
