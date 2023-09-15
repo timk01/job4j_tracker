@@ -17,11 +17,35 @@ public class FindEl {
         return rsl;
     }
 
-    public static void main(String[] args) {
-        try {
-            indexOf(new String[] {"one", "two"}, "three");
-        } catch (ElementNotFoundException e) {
-            e.printStackTrace();
+    public static boolean sent(String value, String[] abuses) throws ElementAbuseException {
+        boolean isWordGood = true;
+        String badWord = null;
+        for (String abuse : abuses) {
+            if (Objects.equals(abuse, value)) {
+                badWord = abuse;
+                isWordGood = false;
+                break;
+            }
         }
+        if (!isWordGood) {
+            throw new ElementAbuseException("found bad word " + badWord);
+        }
+        return isWordGood;
+    }
+
+    public static void process(String[] values, String key, String[] abuses) {
+        try {
+            if (indexOf(values, key) != -1) {
+                sent(key, abuses);
+            }
+        } catch (ElementAbuseException ea) {
+            ea.printStackTrace();
+        } catch (ElementNotFoundException en) {
+            en.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        process(new String[] {"one", "two", "three", "poxyi", "three"}, "poxyi", new String[] {"one, two", "poxyi"});
     }
 }
