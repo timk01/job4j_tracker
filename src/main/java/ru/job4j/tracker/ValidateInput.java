@@ -14,6 +14,6 @@ public class ValidateInput extends ConsoleInput {
                 System.out.println("Enter the valid data");
             }
         } while (invalid);
-        return super.askInt(question);
+        return value;
     }
 }
