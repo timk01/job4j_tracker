@@ -147,7 +147,7 @@ public class ConsoleUITest {
         assertThat(out.toString()).isEqualTo(
                 "Menu:" + ln
                         + "0. Exit Program" + ln
-                + "=== Exit Program ===" + ln
+                        + "=== Exit Program ===" + ln
         );
     }
 
@@ -345,6 +345,27 @@ public class ConsoleUITest {
                         + "Menu:" + ln
                         + "0. Find items by name" + ln
                         + "1. Exit Program" + ln
+                        + "=== Exit Program ===" + ln
+        );
+    }
+
+    @Test
+    public void whenInvalidExit() {
+        Output out = new StubOutput();
+        Input in = new StubInput(
+                new String[]{"-1", "0"}
+        );
+        UserAction[] actions = new UserAction[]{
+                new ExitProgramAction(out)
+        };
+        new ConsoleUI(in, out, actions).run();
+        String ln = System.lineSeparator();
+        assertThat(out.toString()).isEqualTo(
+                "Menu:" + ln
+                        + "0. Exit Program" + ln
+                        + "Wrong input, you can select from 0 and till 0" + ln
+                        + "Menu:" + ln
+                        + "0. Exit Program" + ln
                         + "=== Exit Program ===" + ln
         );
     }
