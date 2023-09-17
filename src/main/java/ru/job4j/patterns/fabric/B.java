@@ -1,4 +1,4 @@
-package ru.job4j.patterns;
+package ru.job4j.patterns.fabric;
 
 public class B extends A {
     private String fooB;
