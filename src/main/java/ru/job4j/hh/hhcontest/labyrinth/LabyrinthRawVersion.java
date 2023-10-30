@@ -1,4 +1,4 @@
-package ru.job4j.hh.labyrinth;
+package ru.job4j.hh.hhcontest.labyrinth;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

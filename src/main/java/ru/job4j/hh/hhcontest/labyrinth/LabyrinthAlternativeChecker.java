@@ -1,4 +1,4 @@
-package ru.job4j.hh.labyrinth;
+package ru.job4j.hh.hhcontest.labyrinth;
 
 public class LabyrinthAlternativeChecker {
     public static void main(String[] args) {

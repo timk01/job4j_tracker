@@ -1,4 +1,4 @@
-package ru.job4j.hh.coockieeater;
+package ru.job4j.hh.hhcontest.coockieeater;
 
 import java.util.Arrays;
 import java.util.Scanner;

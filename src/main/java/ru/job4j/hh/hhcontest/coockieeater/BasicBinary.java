@@ -1,4 +1,4 @@
-package ru.job4j.hh.coockieeater;
+package ru.job4j.hh.hhcontest.coockieeater;
 
 public class BasicBinary {
     public static void main(String[] args) {
