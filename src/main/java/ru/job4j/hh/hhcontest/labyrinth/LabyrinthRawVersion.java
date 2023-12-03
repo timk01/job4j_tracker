@@ -30,7 +30,7 @@ public class LabyrinthRawVersion {
 
     public static void main(String[] args) {
         /**
-         * КУЧА тестовых данных //todo покрыть тестами
+         * КУЧА тестовых данных todo покрыть тестами
          *    int[][] matrix = new int[askNumber()][askNumber()];
          *         int startRow = askNumber();
          *         int startColumn = askNumber();
@@ -40,9 +40,12 @@ public class LabyrinthRawVersion {
          *         Node finalNode = new Node(endRow, endColumn, 0);
          *         fillArray(matrix);
          *
-         *         int[][] matrix = new int[][] {{0, 1, 0}, {0, 1, 0}, {0, 0, 0}}; //new int[3][3];
-         *         int[][] matrix = new int[][] {{0, 1, 0}, {0, 1, 0}, {0, 1, 0}}; //new int[3][3];
-         *         int[][] matrix = new int[][] {{0, 1, 0, 1, 0}, {0, 0, 1, 1, 0}, {1, 0, 1, 0, 0}, {0, 0, 0, 0, 0}}; //new int[4][5]; 12
+         *         int[][] matrix = new int[][] {{0, 1, 0}, {0, 1, 0}, {0, 0, 0}};
+         *         new int[3][3];
+         *         int[][] matrix = new int[][] {{0, 1, 0}, {0, 1, 0}, {0, 1, 0}};
+         *         new int[3][3];
+         *         int[][] matrix = new int[][] {{0, 1, 0, 1, 0}, {0, 0, 1, 1, 0}, {1, 0, 1, 0, 0}, {0, 0, 0, 0, 0}};
+         *         new int[4][5]; 12
          *         int startColumn = 0;
          *         int startRow = 0;
          *         int endColumn = 2;
