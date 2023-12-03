@@ -24,12 +24,12 @@ public class ConsoleUI {
         while (run) {
             showMenu(actions);
             int select = input.askInt("Select: ");
-            if (select < 0 || select >= actions.length) {
+            if (Input.between(select, 0, actions.length)) {
+                UserAction action = actions[select];
+                run = action.execute();
+            } else {
                 out.println("Wrong input, you can select from 0 and till " + (actions.length - 1));
-                continue;
             }
-            UserAction action = actions[select];
-            run = action.execute();
         }
     }
 
