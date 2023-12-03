@@ -1,6 +1,7 @@
 package ru.job4j.hh.hhcontest.labyrinth;
 
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -28,36 +29,43 @@ public class LabyrinthRawVersion {
     }
 
     public static void main(String[] args) {
-        /*int[][] matrix = new int[askNumber()][askNumber()];
-        int startRow = askNumber();
-        int startColumn = askNumber();
-        Node initialNode = new Node(startRow, startColumn, 0);
-        int endRow = askNumber();
-        int endColumn = askNumber();
-        Node finalNode = new Node(endRow, endColumn, 0);
-        fillArray(matrix);*/
+        /**
+         * КУЧА тестовых данных //todo покрыть тестами
+         *    int[][] matrix = new int[askNumber()][askNumber()];
+         *         int startRow = askNumber();
+         *         int startColumn = askNumber();
+         *         Node initialNode = new Node(startRow, startColumn, 0);
+         *         int endRow = askNumber();
+         *         int endColumn = askNumber();
+         *         Node finalNode = new Node(endRow, endColumn, 0);
+         *         fillArray(matrix);
+         *
+         *         int[][] matrix = new int[][] {{0, 1, 0}, {0, 1, 0}, {0, 0, 0}}; //new int[3][3];
+         *         int[][] matrix = new int[][] {{0, 1, 0}, {0, 1, 0}, {0, 1, 0}}; //new int[3][3];
+         *         int[][] matrix = new int[][] {{0, 1, 0, 1, 0}, {0, 0, 1, 1, 0}, {1, 0, 1, 0, 0}, {0, 0, 0, 0, 0}}; //new int[4][5]; 12
+         *         int startColumn = 0;
+         *         int startRow = 0;
+         *         int endColumn = 2;
+         *         int endRow = 0;
+         *
+         *         new int[4][5]; 9
+         *
+         *         int[][] matrixRepresentation = new int[][] {{100, 1, 0, 0, 0}, {0, 0, 1, 1, 0}, {1, 0, 1, 0, 0}, {0, 500, 0, 0, 0}};
+         *         System.out.println(Arrays.deepToString(matrixRepresentation));
+         *         for (int i = 0; i < matrix.length; i++) {
+         *             for (int j = 0; j < matrix[i].length; j++) {
+         *                 System.out.print(matrix[i][j] + " ");
+         *             }
+         *             System.out.println();
+         *         }
+         */
 
-        //int[][] matrix = new int[][] {{0, 1, 0}, {0, 1, 0}, {0, 0, 0}}; //new int[3][3];
-        //int[][] matrix = new int[][] {{0, 1, 0}, {0, 1, 0}, {0, 1, 0}}; //new int[3][3];
-        /*int[][] matrix = new int[][] {{0, 1, 0, 1, 0}, {0, 0, 1, 1, 0}, {1, 0, 1, 0, 0}, {0, 0, 0, 0, 0}}; //new int[4][5]; 12
-        int startColumn = 0;
-        int startRow = 0;
-        int endColumn = 2;
-        int endRow = 0;*/
-
-        int[][] matrix = new int[][] {{0, 1, 0, 1, 0}, {0, 0, 1, 1, 0}, {1, 0, 1, 0, 0}, {0, 0, 0, 0, 0}}; //new int[4][5]; 9
+        int[][] matrix = new int[][] {{0, 1, 0, 1, 0}, {0, 0, 1, 1, 0}, {1, 0, 1, 0, 0}, {0, 0, 0, 0, 0}};
         int startColumn = 4;
         int startRow = 0;
         int endColumn = 0;
         int endRow = 1;
-        //int[][] matrixRepresentation = new int[][] {{100, 1, 0, 0, 0}, {0, 0, 1, 1, 0}, {1, 0, 1, 0, 0}, {0, 500, 0, 0, 0}};
-        //System.out.println(Arrays.deepToString(matrixRepresentation));
-     /*   for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[i].length; j++) {
-                System.out.print(matrix[i][j] + " ");
-            }
-            System.out.println();
-        }*/
+
         int[][] matrix2 = new int[4][5];
 
         for (int i = 0; i < matrix2.length; i++) {

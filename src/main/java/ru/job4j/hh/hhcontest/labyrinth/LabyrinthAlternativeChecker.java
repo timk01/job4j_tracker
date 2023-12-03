@@ -12,12 +12,19 @@ public class LabyrinthAlternativeChecker {
             int ny = x + neighbour[1];
 
             if ((nx >= 0 && nx <= rows) && (ny >= 0 && ny <= columns)) {
-                //+2 проверки
-                // 1) ЭТА точка лабиринта - туда вообще можно идти, т.е. matrix[nx][ny] == 0
-                // 2) а не были мы там ранее, т.е. !visited[nx][ny]
+
+                /**
+                 //+2 проверки
+                 // 1) ЭТА точка лабиринта - туда вообще можно идти, т.е. matrix[nx][ny] == 0
+                 // 2) а не были мы там ранее, т.е. !visited[nx][ny]
+                 */
+
                 System.out.println("nx " + nx);
                 System.out.println("ny " + ny);
-                //помечаем как виситед, в очередь
+
+                /**
+                 * помечаем как виситед, в очередь
+                 */
             }
 
         }
