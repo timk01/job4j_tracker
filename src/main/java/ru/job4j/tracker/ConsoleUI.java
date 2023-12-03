@@ -1,5 +1,12 @@
 package ru.job4j.tracker;
 
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.ConsoleInput;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.ValidateInput;
+import ru.job4j.tracker.output.ConsoleOutput;
+import ru.job4j.tracker.output.Output;
+
 public class ConsoleUI {
 
     private final Input input;
@@ -38,13 +45,13 @@ public class ConsoleUI {
         Input input = new ValidateInput(output, new ConsoleInput());
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateItemAction(input, output, tracker),
-                new ShowAllItemsAction(output, tracker),
-                new EditItemAction(input, output, tracker),
-                new DeleteItemAction(input, output, tracker),
-                new FindItemByIdAction(input, output, tracker),
-                new FindItemsByNameAction(input, output, tracker),
-                new ExitProgramAction(output)
+                new CreateItem(input, output, tracker),
+                new ShowAllItems(output, tracker),
+                new EditItem(input, output, tracker),
+                new DeleteItem(input, output, tracker),
+                new FindItemById(input, output, tracker),
+                new FindItemsByName(input, output, tracker),
+                new ExitProgram(output)
         };
         new ConsoleUI(input, output, actions).run();
     }

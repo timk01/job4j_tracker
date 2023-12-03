@@ -1,10 +1,12 @@
-package ru.job4j.tracker;
+package ru.job4j.tracker.action;
 
-public class ExitProgramAction implements UserAction {
+import ru.job4j.tracker.output.Output;
+
+public class ExitProgram implements UserAction {
 
     private final Output out;
 
-    public ExitProgramAction(Output out) {
+    public ExitProgram(Output out) {
         this.out = out;
     }
 

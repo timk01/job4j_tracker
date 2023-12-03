@@ -1,6 +1,11 @@
 package ru.job4j.tracker;
 
 import org.junit.jupiter.api.Test;
+import ru.job4j.tracker.action.*;
+import ru.job4j.tracker.input.Input;
+import ru.job4j.tracker.input.StubInput;
+import ru.job4j.tracker.output.Output;
+import ru.job4j.tracker.output.StubOutput;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -13,8 +18,8 @@ public class ConsoleUITest {
         );
         Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateItemAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new CreateItem(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
@@ -31,8 +36,8 @@ public class ConsoleUITest {
                 new String[]{"0", String.valueOf(oldItem.getId()), replacedItem, "1"}
         );
         UserAction[] actions = {
-                new EditItemAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new EditItem(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         assertThat(tracker.findById(oldItem.getId()).getName()).isEqualTo(replacedItem);
@@ -46,8 +51,8 @@ public class ConsoleUITest {
                 new String[]{"0", "1", "replaced item", "1"}
         );
         UserAction[] actions = {
-                new EditItemAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new EditItem(in, out, tracker),
+                new ExitProgram(out)
         };
         Item[] items = tracker.findAll();
         assertThat(items).isEmpty();
@@ -70,8 +75,8 @@ public class ConsoleUITest {
                 new String[]{"0", String.valueOf(replacedItemId), replacedItem.getName(), "1"}
         );
         UserAction[] actions = {
-                new EditItemAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new EditItem(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         replacedItem = tracker.findById(replacedItemId);
@@ -88,8 +93,8 @@ public class ConsoleUITest {
                 new String[]{"0", String.valueOf(item.getId()), "1"}
         );
         UserAction[] actions = {
-                new DeleteItemAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new DeleteItem(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         assertThat(tracker.findById(item.getId())).isNull();
@@ -103,8 +108,8 @@ public class ConsoleUITest {
                 new String[]{"0", "1", "1"}
         );
         UserAction[] actions = {
-                new DeleteItemAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new DeleteItem(in, out, tracker),
+                new ExitProgram(out)
         };
         Item[] items = tracker.findAll();
         assertThat(items).isEmpty();
@@ -124,8 +129,8 @@ public class ConsoleUITest {
                 new String[]{"0", String.valueOf(deletedItemId), "1"}
         );
         UserAction[] actions = {
-                new DeleteItemAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new DeleteItem(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         assertThat(tracker.findAll()).isNotEmpty();
@@ -140,7 +145,7 @@ public class ConsoleUITest {
                 new String[]{"0"}
         );
         UserAction[] actions = {
-                new ExitProgramAction(out)
+                new ExitProgram(out)
         };
         String ln = System.lineSeparator();
         new ConsoleUI(in, out, actions).run();
@@ -161,8 +166,8 @@ public class ConsoleUITest {
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
-                new EditItemAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new EditItem(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
@@ -189,8 +194,8 @@ public class ConsoleUITest {
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
-                new ShowAllItemsAction(out, tracker),
-                new ExitProgramAction(out)
+                new ShowAllItems(out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
@@ -216,8 +221,8 @@ public class ConsoleUITest {
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
-                new ShowAllItemsAction(out, tracker),
-                new ExitProgramAction(out)
+                new ShowAllItems(out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
@@ -243,8 +248,8 @@ public class ConsoleUITest {
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
-                new FindItemByIdAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new FindItemById(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
@@ -271,8 +276,8 @@ public class ConsoleUITest {
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
-                new FindItemByIdAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new FindItemById(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
@@ -300,8 +305,8 @@ public class ConsoleUITest {
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
-                new FindItemsByNameAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new FindItemsByName(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
@@ -331,8 +336,8 @@ public class ConsoleUITest {
         );
         Output out = new StubOutput();
         UserAction[] actions = new UserAction[]{
-                new FindItemsByNameAction(in, out, tracker),
-                new ExitProgramAction(out)
+                new FindItemsByName(in, out, tracker),
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
@@ -356,7 +361,7 @@ public class ConsoleUITest {
                 new String[]{"-1", "0"}
         );
         UserAction[] actions = new UserAction[]{
-                new ExitProgramAction(out)
+                new ExitProgram(out)
         };
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
