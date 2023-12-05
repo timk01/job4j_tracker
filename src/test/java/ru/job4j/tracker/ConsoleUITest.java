@@ -7,9 +7,12 @@ import ru.job4j.tracker.input.StubInput;
 import ru.job4j.tracker.output.Output;
 import ru.job4j.tracker.output.StubOutput;
 
-import static org.assertj.core.api.Assertions.*;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ConsoleUITest {
+
     @Test
     public void whenCreateItem() {
         Output out = new StubOutput();
@@ -17,12 +20,12 @@ public class ConsoleUITest {
                 new String[]{"0", "Item name", "1"}
         );
         Tracker tracker = new Tracker();
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new CreateItem(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
-        assertThat(tracker.findAll()[0].getName()).isEqualTo("Item name");
+        assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
 
     @Test
@@ -35,10 +38,10 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(oldItem.getId()), replacedItem, "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new EditItem(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         assertThat(tracker.findById(oldItem.getId()).getName()).isEqualTo(replacedItem);
     }
@@ -50,11 +53,11 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"0", "1", "replaced item", "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new EditItem(in, out, tracker),
                 new ExitProgram(out)
-        };
-        Item[] items = tracker.findAll();
+        );
+        List<Item> items = tracker.findAll();
         assertThat(items).isEmpty();
         new ConsoleUI(in, out, actions).run();
         items = tracker.findAll();
@@ -74,10 +77,10 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(replacedItemId), replacedItem.getName(), "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new EditItem(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         replacedItem = tracker.findById(replacedItemId);
         assertThat(replacedItem).isNull();
@@ -92,10 +95,10 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(item.getId()), "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new DeleteItem(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         assertThat(tracker.findById(item.getId())).isNull();
     }
@@ -107,11 +110,11 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"0", "1", "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new DeleteItem(in, out, tracker),
                 new ExitProgram(out)
-        };
-        Item[] items = tracker.findAll();
+        );
+        List<Item> items = tracker.findAll();
         assertThat(items).isEmpty();
         new ConsoleUI(in, out, actions).run();
         items = tracker.findAll();
@@ -128,10 +131,10 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(deletedItemId), "1"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new DeleteItem(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         assertThat(tracker.findAll()).isNotEmpty();
         assertThat(tracker.findById(1000)).isNull();
@@ -144,9 +147,9 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"0"}
         );
-        UserAction[] actions = {
+        List<UserAction> actions = List.of(
                 new ExitProgram(out)
-        };
+        );
         String ln = System.lineSeparator();
         new ConsoleUI(in, out, actions).run();
         assertThat(out.toString()).isEqualTo(
@@ -165,10 +168,10 @@ public class ConsoleUITest {
                 new String[]{"0", String.valueOf(one.getId()), replaceName, "1"}
         );
         Output out = new StubOutput();
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new EditItem(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -193,10 +196,10 @@ public class ConsoleUITest {
                 new String[]{"0", "1"}
         );
         Output out = new StubOutput();
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new ShowAllItems(out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -220,10 +223,10 @@ public class ConsoleUITest {
                 new String[]{"0", "1"}
         );
         Output out = new StubOutput();
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new ShowAllItems(out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -247,10 +250,10 @@ public class ConsoleUITest {
                 new String[]{"0", String.valueOf(first.getId()), "1"}
         );
         Output out = new StubOutput();
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new FindItemById(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -275,10 +278,10 @@ public class ConsoleUITest {
                 new String[]{"0", String.valueOf(searchId), "1"}
         );
         Output out = new StubOutput();
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new FindItemById(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -304,10 +307,10 @@ public class ConsoleUITest {
                 new String[]{"0", first.getName(), "1"}
         );
         Output out = new StubOutput();
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new FindItemsByName(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -335,10 +338,10 @@ public class ConsoleUITest {
                 new String[]{"0", fourthNotAdded.getName(), "1"}
         );
         Output out = new StubOutput();
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new FindItemsByName(in, out, tracker),
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -360,9 +363,9 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"-1", "0"}
         );
-        UserAction[] actions = new UserAction[]{
+        List<UserAction> actions = List.of(
                 new ExitProgram(out)
-        };
+        );
         new ConsoleUI(in, out, actions).run();
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(

@@ -7,5 +7,6 @@ public class UserStore {
                 + user.getId() + " "
                 + user.getUsername() + " "
                 + user.getPassword()
-        );    }
+        );
+    }
 }
