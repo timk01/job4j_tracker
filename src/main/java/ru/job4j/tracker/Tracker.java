@@ -14,13 +14,20 @@ public class Tracker {
         return item;
     }
 
-    public Item findById(int id) {
-        for (Item item : items) {
-            if (item.getId() == id) {
-                return item;
+    private int indexOf(int id) {
+        int rsl = -1;
+        for (int index = 0; index < items.size(); index++) {
+            if (items.get(index).getId() == id) {
+                rsl = index;
+                break;
             }
         }
-        return null;
+        return rsl;
+    }
+
+    public Item findById(int id) {
+        int index = indexOf(id);
+        return index != -1 ? items.get(index) : null;
     }
 
     public List<Item> findByName(String key) {
@@ -34,28 +41,24 @@ public class Tracker {
     }
 
     public List<Item> findAll() {
-        return items;
+        return List.copyOf(items);
     }
 
     public boolean replace(int id, Item item) {
-        Item oldItem = findById(id);
-        if (oldItem == null) {
-            return false;
+        int index = indexOf(id);
+        boolean result = index != -1;
+        if (result) {
+            item.setId(id);
+            items.set(index, item);
         }
-        int oldItemIndex = items.indexOf(oldItem);
-        item.setId(id);
-        items.set(oldItemIndex, item);
-        return true;
+        return result;
     }
 
     public void delete(int id) {
-        Item oldItem = findById(id);
-        int oldItemIndex = items.indexOf(oldItem);
-        for (Item item : items) {
-            if (item.getId() == id) {
-                items.remove(oldItemIndex);
-                break;
-            }
+        int index = indexOf(id);
+        boolean result = index != -1;
+        if (result) {
+            items.remove(index);
         }
     }
 }
