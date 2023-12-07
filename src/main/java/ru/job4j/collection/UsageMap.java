@@ -10,8 +10,10 @@ public class UsageMap {
         people.put("parsentev@yandex.ru", "Petr Arsentev");
         people.put("ivanov123@mail.ru", "Ivan Ivanov");
         people.put("timk01@mail.ru", "Timur Khasmamedov #2");
-        for (Map.Entry<String, String> peopleSet : people.entrySet()) {
-            System.out.println(peopleSet.getKey() + " " + peopleSet.getValue());
+
+        for (String key : people.keySet()) {
+            String value = people.get(key);
+            System.out.println(key + " " + value);
         }
     }
 }
