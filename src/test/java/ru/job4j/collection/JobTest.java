@@ -48,7 +48,6 @@ public class JobTest {
         assertThat(rsl).isNegative();
     }
 
-
     @Test
     public void whenComparatorByDescNameAndDescPriority() {
         Comparator<Job> cmpNamePriority = new JobDescByName().thenComparing(new JobDescByPriority());
