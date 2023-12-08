@@ -42,8 +42,7 @@ public class AnalyzeByMap {
         List<Label> labelList = new ArrayList<>();
         int overallScore = 0;
         for (Pupil pupil : pupils) {
-            List<Subject> subjects = pupil.subjects();
-            for (Subject subject : subjects) {
+            for (Subject subject : pupil.subjects()) {
                 overallScore += subject.score();
             }
             labelList.add(new Label(pupil.name(), overallScore));
@@ -64,14 +63,10 @@ public class AnalyzeByMap {
     }
 
     private static Map<String, Integer> countOverallScoreBySubject(List<Pupil> pupils) {
-        int overallScore = 0;
         Map<String, Integer> temp = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
-            List<Subject> subjects = pupil.subjects();
-            for (Subject subject : subjects) {
-                String subjName = subject.name();
-                overallScore = temp.getOrDefault(subjName, 0);
-                temp.put(subjName, overallScore + subject.score());
+            for (Subject subject : pupil.subjects()) {
+                temp.put(subject.name(), temp.getOrDefault(subject.name(), 0) + subject.score());
             }
         }
         return temp;
