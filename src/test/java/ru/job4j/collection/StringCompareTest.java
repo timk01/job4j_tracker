@@ -85,7 +85,6 @@ public class StringCompareTest {
         assertThat(rst).isLessThan(0);
     }
 
-
     @Test
     public void firstCharOfSecondWordIsSEmptyAndSymbol() {
         StringCompare compare = new StringCompare();
@@ -115,7 +114,6 @@ public class StringCompareTest {
         );
         assertThat(rst).isGreaterThan(0);
     }
-
 
     @Test
     public void wordsAreSameNumbersAndSameSize() {
