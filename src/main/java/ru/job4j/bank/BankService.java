@@ -5,13 +5,41 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Main class for BankService
+ * As a main field has HashMap of users
+ * And also several working methods for basic CRUD bank operations:
+ * add use/account, searing for user by requisite or by passport and requisite,
+ * searing for account and getting list of accounts, deletion of user.
+ * Also it's possible to transfer money from one account to another.
+ *
+ * See {@link User} for user
+ * See {@link Account} for account
+ * @author Timur Khasmamedov
+ * @version 1.0
+ */
 public class BankService {
+
+    /**
+     * Final HashMap is chosen for unique Key - not-unique Value implementation
+     * Key is User (unique by passport), while Value is a list of his accounts
+     */
     private final Map<User, List<Account>> users = new HashMap<>();
 
+    /**
+     * Adds unique user to map of users.
+     * If this map already has the user which we want to add, addition isn't implemented.
+     * @param user of User type
+     */
     public void addUser(User user) {
         users.putIfAbsent(user, new ArrayList<>());
     }
 
+    /**
+     * Deletes the user from the map of users, but only if it can find it by passport beforehand.
+     * See {@link #findByPassport(String)} for user
+     * @param passport of String type
+     */
     public void deleteUser(String passport) {
         User user = findByPassport(passport);
         if (user != null) {
@@ -19,6 +47,13 @@ public class BankService {
         }
     }
 
+    /**
+     * Add the account of user to the list of users,
+     * but only if it can find the user by passport beforehand and the same account isn't found.
+     * See {@link #findByPassport(String)} for user
+     * @param passport of String type
+     * @param account of Account type
+     */
     public void addAccount(String passport, Account account) {
         User user = findByPassport(passport);
         if (user != null) {
@@ -29,6 +64,12 @@ public class BankService {
         }
     }
 
+    /**
+     * Searches the user in map above by its unique passport; if not found, returns null
+     * See {@link #findByPassport(String)} for user
+     * @param passport of String type
+     * @return user of User type or null
+     */
     public User findByPassport(String passport) {
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
@@ -38,6 +79,14 @@ public class BankService {
         return null;
     }
 
+    /**
+     * Searches the account of user,
+     * but only if it can find the user by passport beforehand
+     * and also unique account requisite is the same
+     * See {@link #findByPassport(String)} for user
+     * @param passport of String type
+     * @return account of Account type or null if account isn't found
+     */
     public Account findByRequisite(String passport, String requisite) {
         User user = findByPassport(passport);
         if (user != null) {
@@ -51,6 +100,20 @@ public class BankService {
         return null;
     }
 
+    /**
+     * Transfers money from one user account to another one.
+     * Both accounts should exist beforehand,
+     * which is confirmed by findByRequisite(srcPassport, srcRequisite) method
+     * See {@link #findByRequisite(String passport, String requisite)}
+     * Also the money amount on first account should be more that withdrawal sum
+     * If all conditions above are good, reduces money on one account and increases money on another.
+     * @param srcPassport of String type
+     * @param srcRequisite of String type
+     * @param destPassport of String type
+     * @param destRequisite of String type
+     * @param amount of double type
+     * @return true if transfer is done or false if any issues above came in play
+     */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         Account from = findByRequisite(srcPassport, srcRequisite);
@@ -68,6 +131,11 @@ public class BankService {
         return true;
     }
 
+    /**
+     * Searches the accounts of user,
+     * @param user of User type
+     * @return list of accounts of Account type or null if accounts aren't found
+     */
     public List<Account> getAccounts(User user) {
         return users.get(user);
     }
