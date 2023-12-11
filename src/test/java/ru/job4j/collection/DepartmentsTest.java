@@ -146,4 +146,46 @@ class DepartmentsTest {
         Departments.sortDesc(input);
         assertThat(input).containsSequence(expect);
     }
+
+    @Test
+    void whenSortEHalfEmptyDepartments() {
+        List<String> input = Arrays.asList(
+                "K1",
+                ""
+        );
+        List<String> expect = Arrays.asList(
+                "K1",
+                ""
+        );
+        Departments.sortDesc(input);
+        assertThat(input).containsSequence(expect);
+    }
+
+    @Test
+    void whenSortEHalfEmptyDepartments2() {
+        List<String> input = Arrays.asList(
+                "",
+                "K1"
+        );
+        List<String> expect = Arrays.asList(
+                "K1",
+                ""
+        );
+        Departments.sortDesc(input);
+        assertThat(input).containsSequence(expect);
+    }
+
+    @Test
+    void whenSortEmptyDepartments2() {
+        List<String> input = Arrays.asList(
+                "",
+                ""
+        );
+        List<String> expect = Arrays.asList(
+                "",
+                ""
+        );
+        Departments.sortDesc(input);
+        assertThat(input).containsSequence(expect);
+    }
 }
