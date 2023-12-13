@@ -7,7 +7,6 @@ import java.util.function.Predicate;
 
 import static org.assertj.core.api.Assertions.*;
 
-
 public class SearchFolderTest {
     @Test
     public void whenFilterSize() {
