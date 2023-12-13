@@ -18,14 +18,6 @@ public class FunctionalInterfaces {
                     }
                 };
 
-        map.put(1, "one");
-        map.put(2, "two");
-        map.put(3, "three");
-        map.put(4, "four");
-        map.put(5, "five");
-        map.put(6, "six");
-        map.put(7, "seven");
-
         biConsumer.accept(1, "one");
         biConsumer.accept(2, "two");
         arrayBiConsumer.accept(List.of(3, 4, 5, 6, 7),
