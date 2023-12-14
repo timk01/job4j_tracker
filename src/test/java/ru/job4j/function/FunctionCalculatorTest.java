@@ -19,7 +19,7 @@ class FunctionCalculatorTest {
     @Test
     void whenQuadraticFunctionThenLinearResults() {
         FunctionCalculator function = new FunctionCalculator();
-        List<Double> result = function.diapason(5, 8, x -> x*x);
+        List<Double> result = function.diapason(5, 8, x -> x * x);
         List<Double> expected = Arrays.asList(25D, 36D, 49D);
         assertThat(result).containsAll(expected);
     }
