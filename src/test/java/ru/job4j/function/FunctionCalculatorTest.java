@@ -31,4 +31,5 @@ class FunctionCalculatorTest {
         List<Double> expected = Arrays.asList(1D, 2D, 4D, 8D, 16D, 32D);
         assertThat(result).containsAll(expected);
     }
+
 }
