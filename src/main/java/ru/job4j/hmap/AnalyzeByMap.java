@@ -1,6 +1,7 @@
 package ru.job4j.hmap;
 
 import java.util.*;
+import java.util.function.BiFunction;
 
 public class AnalyzeByMap {
     public static double averageScore(List<Pupil> pupils) {
@@ -64,9 +65,13 @@ public class AnalyzeByMap {
 
     private static Map<String, Integer> countOverallScoreBySubject(List<Pupil> pupils) {
         Map<String, Integer> temp = new LinkedHashMap<>();
+        BiFunction<Integer, Subject, Integer> mapFunc;
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                temp.put(subject.name(), temp.getOrDefault(subject.name(), 0) + subject.score());
+                temp.merge(
+                        subject.name(),
+                        subject.score(),
+                        (oldScore, newScore) -> newScore + temp.get(subject.name()));
             }
         }
         return temp;
