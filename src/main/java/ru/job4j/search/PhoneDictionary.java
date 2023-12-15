@@ -1,7 +1,6 @@
 package ru.job4j.search;
 
 import java.util.ArrayList;
-import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public class PhoneDictionary {
@@ -33,6 +32,6 @@ public class PhoneDictionary {
         Predicate<Person> checkBySurname = person -> person.getSurname().contains(key);
         Predicate<Person> checkByPhone = person -> person.getPhone().contains(key);
         Predicate<Person> checkAddress = person -> person.getAddress().contains(key);
-        return checkByName.or(checkBySurname.or(checkByPhone.or(checkAddress)));
+        return checkByName.or(checkBySurname).or(checkByPhone).or(checkAddress);
     }
 }
