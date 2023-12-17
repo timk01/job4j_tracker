@@ -65,13 +65,13 @@ public class AnalyzeByMap {
 
     private static Map<String, Integer> countOverallScoreBySubject(List<Pupil> pupils) {
         Map<String, Integer> temp = new LinkedHashMap<>();
-        BiFunction<Integer, Subject, Integer> mapFunc;
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
                 temp.merge(
                         subject.name(),
                         subject.score(),
-                        (oldScore, newScore) -> newScore + temp.get(subject.name()));
+                        (oldScore, newScore) -> oldScore + subject.score()
+                );
             }
         }
         return temp;
