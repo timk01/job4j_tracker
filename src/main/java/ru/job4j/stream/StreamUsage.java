@@ -25,9 +25,9 @@ public class StreamUsage {
                 new Task("Task #2", 100),
                 new Task("Bug #3", 100)
         );
-        List<Task> bugs = tasks.stream().filter(
-                task -> task.name.contains("Bug")
-        ).collect(Collectors.toList());
+        List<Task> bugs = tasks.stream().
+                filter(task -> task.name.contains("Bug"))
+                .collect(Collectors.toList());
         bugs.forEach(System.out::println);
 
         System.out.println();
@@ -41,5 +41,11 @@ public class StreamUsage {
                 task -> task.spent
         ).reduce(0L, Long::sum);
         System.out.println(total);
+
+        System.out.println();
+        tasks.stream()
+                .filter(task -> task.name.contains("Bug"))
+                .map(task -> task.name)
+                .forEach(System.out::println);
     }
 }
