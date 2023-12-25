@@ -1,7 +1,9 @@
 package ru.job4j.stream;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class StreamUsage {
     public static class Task {
@@ -17,6 +19,14 @@ public class StreamUsage {
         public String toString() {
             return "Task{" + "name='" + name + '\'' + ", spent=" + spent + '}';
         }
+    }
+
+    public List<Student> levelOf(List<Student> students, int bound) {
+        return students.stream()
+                .flatMap(Stream::ofNullable)
+                .sorted()
+                .filter(student -> student.getScore() > bound)
+                .collect(Collectors.toList());
     }
 
     public static void main(String[] args) {
@@ -47,5 +57,14 @@ public class StreamUsage {
                 .filter(task -> task.name.contains("Bug"))
                 .map(task -> task.name)
                 .forEach(System.out::println);
+
+        System.out.println();
+        StreamUsage streamUsage = new StreamUsage();
+        System.out.println(
+                streamUsage.
+                levelOf(
+                        Arrays.asList(new Student(133), null, new Student(144)),
+                        123)
+        );
     }
 }
