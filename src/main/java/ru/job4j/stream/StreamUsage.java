@@ -21,7 +21,7 @@ public class StreamUsage {
         }
     }
 
-    public List<Student> levelOf(List<Student> students, int bound) {
+    public List<Student2> levelOf(List<Student2> students, int bound) {
         return students.stream()
                 .flatMap(Stream::ofNullable)
                 .sorted()
@@ -63,7 +63,7 @@ public class StreamUsage {
         System.out.println(
                 streamUsage.
                 levelOf(
-                        Arrays.asList(new Student(133), null, new Student(144)),
+                        Arrays.asList(new Student2(133), null, new Student2(144)),
                         123)
         );
     }
