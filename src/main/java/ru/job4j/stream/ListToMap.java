@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 public class ListToMap {
 
     public static Map<String, Student> convert(List<Student> list) {
-        return list.stream().
-                collect(Collectors.toMap(
-                        Student::getSurname,
-                        Function.identity(),
-                        (firstK, secondK) -> firstK
-                ));
+        return list.stream()
+                .collect(Collectors.toMap(
+                                Student::getSurname,
+                                Function.identity(),
+                                (first, second) -> first
+                        )
+                );
     }
 }
