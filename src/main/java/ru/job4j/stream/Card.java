@@ -1,5 +1,6 @@
 package ru.job4j.stream;
 
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 
 public class Card {
@@ -9,6 +10,14 @@ public class Card {
     public Card(Suit suit, Value value) {
         this.suit = suit;
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Card.class.getSimpleName() + "[", "]")
+                .add("suit=" + suit)
+                .add("value=" + value)
+                .toString();
     }
 
     public static void main(String[] args) {
