@@ -1,9 +1,6 @@
 package ru.job4j.stream;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -80,5 +77,10 @@ public class StreamExJR {
         Stream<Integer> numStreamOptAny = Stream.of(43, 65, 1, 98, 63);
         boolean b = numStreamOptAny.anyMatch(n -> n == 1);
         System.out.println("found el with == 1 " + b);
+
+        int[] arr3 = new int[] {1, 2, 3};
+        Stream<int[]> arr31 = Stream.of(arr3);
+        List<Integer> integerList = new ArrayList<>();
+        Stream.of(integerList);
     }
 }
