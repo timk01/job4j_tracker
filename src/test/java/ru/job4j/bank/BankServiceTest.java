@@ -10,7 +10,7 @@ class BankServiceTest {
         User user = new User("3434", "Petr Arsentev");
         BankService bank = new BankService();
         bank.addUser(user);
-        assertThat(bank.findByPassport("3434")).isEqualTo(user);
+        assertThat(bank.findByPassport("3434").get()).isEqualTo(user);
     }
 
     @Test
@@ -20,7 +20,7 @@ class BankServiceTest {
         bank.addUser(user);
         User userWithSamePassport = new User("3434", "Ivan Ivanov");
         bank.addUser(userWithSamePassport);
-        assertThat(bank.findByPassport("3434")).isEqualTo(user);
+        assertThat(bank.findByPassport("3434").get()).isEqualTo(user);
     }
 
     @Test
@@ -31,7 +31,7 @@ class BankServiceTest {
         bank.addUser(first);
         bank.addUser(second);
         bank.deleteUser("3434");
-        assertThat(bank.findByPassport(first.getPassport())).isNull();
+        assertThat(bank.findByPassport(first.getPassport()).isEmpty()).isTrue();
     }
 
     @Test
@@ -42,7 +42,8 @@ class BankServiceTest {
         bank.addUser(first);
         bank.addUser(second);
         bank.deleteUser("343434");
-        assertThat(bank.findByPassport(first.getPassport())).isEqualTo(first);
+        assertThat(bank.findByPassport(first.getPassport()).isPresent()).isTrue();
+        assertThat(bank.findByPassport(first.getPassport()).get()).isEqualTo(first);
     }
 
     @Test
