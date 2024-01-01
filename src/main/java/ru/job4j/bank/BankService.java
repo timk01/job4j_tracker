@@ -1,9 +1,6 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Main class for BankService
@@ -41,10 +38,8 @@ public class BankService {
      * @param passport of String type
      */
     public void deleteUser(String passport) {
-        User user = findByPassport(passport);
-        if (user != null) {
-            users.remove(user);
-        }
+        Optional<User> user = findByPassport(passport);
+        user.ifPresent(users::remove);
     }
 
     /**
@@ -55,9 +50,9 @@ public class BankService {
      * @param account of Account type
      */
     public void addAccount(String passport, Account account) {
-        User user = findByPassport(passport);
-        if (user != null) {
-            List<Account> accounts = getAccounts(user);
+        Optional<User> user = findByPassport(passport);
+        if (user.isPresent()) {
+            List<Account> accounts = getAccounts(user.get());
             if (!accounts.contains(account)) {
                 accounts.add(account);
             }
@@ -70,13 +65,14 @@ public class BankService {
      * @param passport of String type
      * @return user of User type or null
      */
-    public User findByPassport(String passport) {
+    public Optional<User> findByPassport(String passport) {
+        Optional<User> result = Optional.empty();
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
-                return user;
+                return Optional.of(user);
             }
         }
-        return null;
+        return result;
     }
 
     /**
@@ -88,9 +84,9 @@ public class BankService {
      * @return account of Account type or null if account isn't found
      */
     public Account findByRequisite(String passport, String requisite) {
-        User user = findByPassport(passport);
-        if (user != null) {
-            List<Account> accounts = getAccounts(user);
+        Optional<User> user = findByPassport(passport);
+        if (user.isPresent()) {
+            List<Account> accounts = getAccounts(user.get());
             for (Account userAccount : accounts) {
                 if (userAccount.getRequisite().equals(requisite)) {
                     return userAccount;
@@ -138,5 +134,12 @@ public class BankService {
      */
     public List<Account> getAccounts(User user) {
         return users.get(user);
+    }
+
+    public static void main(String[] args) {
+        BankService bank = new BankService();
+        bank.addUser(new User("321", "Petr Arsentev"));
+        Optional<User> user = bank.findByPassport("3211");
+        user.ifPresent(value -> System.out.println(value.getUsername()));
     }
 }
