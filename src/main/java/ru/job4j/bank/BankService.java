@@ -60,10 +60,10 @@ public class BankService {
     }
 
     /**
-     * Searches the user in map above by its unique passport; if not found, returns null
+     * Searches the user in map above by its unique passport; if not found, returns Optional.empty()
      * See {@link #findByPassport(String)} for user
      * @param passport of String type
-     * @return user of User type or null
+     * @return Optional of User type or Optional.empty()
      */
     public Optional<User> findByPassport(String passport) {
         Optional<User> result = Optional.empty();
@@ -81,19 +81,19 @@ public class BankService {
      * and also unique account requisite is the same
      * See {@link #findByPassport(String)} for user
      * @param passport of String type
-     * @return account of Account type or null if account isn't found
+     * @return Optional of Account type or Optional.empty() if user isn't found or account isn't found
      */
-    public Account findByRequisite(String passport, String requisite) {
+    public Optional<Account> findByRequisite(String passport, String requisite) {
         Optional<User> user = findByPassport(passport);
         if (user.isPresent()) {
             List<Account> accounts = getAccounts(user.get());
             for (Account userAccount : accounts) {
                 if (userAccount.getRequisite().equals(requisite)) {
-                    return userAccount;
+                    return Optional.of(userAccount);
                 }
             }
         }
-        return null;
+        return Optional.empty();
     }
 
     /**
@@ -112,18 +112,18 @@ public class BankService {
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
-        Account from = findByRequisite(srcPassport, srcRequisite);
-        Account to = findByRequisite(destPassport, destRequisite);
-        if (from == null || to == null) {
+        Optional<Account> from = findByRequisite(srcPassport, srcRequisite);
+        Optional<Account> to = findByRequisite(destPassport, destRequisite);
+        if (from.isEmpty() || to.isEmpty()) {
             return false;
         }
-        double prevFromBalance = from.getBalance();
+        double prevFromBalance = from.get().getBalance();
         if (prevFromBalance < amount) {
             return false;
         }
-        from.setBalance(prevFromBalance - amount);
-        double toPrevBalance = to.getBalance();
-        to.setBalance(toPrevBalance + amount);
+        from.get().setBalance(prevFromBalance - amount);
+        double toPrevBalance = to.get().getBalance();
+        to.get().setBalance(toPrevBalance + amount);
         return true;
     }
 

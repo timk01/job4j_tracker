@@ -2,6 +2,8 @@ package ru.job4j.bank;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.*;
 
 class BankServiceTest {
@@ -52,7 +54,7 @@ class BankServiceTest {
         BankService bank = new BankService();
         bank.addUser(user);
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
-        assertThat(bank.findByRequisite("34", "5546")).isNull();
+        assertThat(bank.findByRequisite("34", "5546").isEmpty());
     }
 
     @Test
@@ -61,7 +63,8 @@ class BankServiceTest {
         BankService bank = new BankService();
         bank.addUser(user);
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
-        assertThat(bank.findByRequisite("3434", "5546").getBalance()).isEqualTo(150D);
+        assertThat(bank.findByRequisite("3434", "5546")).isPresent();
+        assertThat(bank.findByRequisite("3434", "5546").get().getBalance()).isEqualTo(150D);
     }
 
     @Test
@@ -93,7 +96,8 @@ class BankServiceTest {
         boolean result = bank.transferMoney(user.getPassport(), "5546",
                 user.getPassport(), "113", 150D);
         assertThat(result).isTrue();
-        assertThat(bank.findByRequisite(user.getPassport(), "113").getBalance()).isEqualTo(200D);
+        assertThat(bank.findByRequisite(user.getPassport(), "113")).isPresent();
+        assertThat(bank.findByRequisite(user.getPassport(), "113").get().getBalance()).isEqualTo(200D);
     }
 
     @Test
@@ -104,7 +108,8 @@ class BankServiceTest {
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
         bank.addAccount(user.getPassport(), new Account("113", 50D));
         bank.transferMoney(user.getPassport(), "5546", user.getPassport(), "113", 150D);
-        assertThat(bank.findByRequisite(user.getPassport(), "5546").getBalance()).isEqualTo(0D);
+        assertThat(bank.findByRequisite(user.getPassport(), "5546")).isPresent();
+        assertThat(bank.findByRequisite(user.getPassport(), "5546").get().getBalance()).isEqualTo(0D);
     }
 
     @Test
@@ -117,7 +122,8 @@ class BankServiceTest {
         boolean result = bank.transferMoney(user.getPassport(), "554",
                 user.getPassport(), "113", 150D);
         assertThat(result).isFalse();
-        assertThat(bank.findByRequisite(user.getPassport(), "5546").getBalance()).isEqualTo(150D);
+        assertThat(bank.findByRequisite(user.getPassport(), "5546")).isPresent();
+        assertThat(bank.findByRequisite(user.getPassport(), "5546").get().getBalance()).isEqualTo(150D);
     }
 
     @Test
@@ -128,7 +134,8 @@ class BankServiceTest {
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
         bank.addAccount(user.getPassport(), new Account("113", 50D));
         bank.transferMoney(user.getPassport(), "5546", user.getPassport(), "113", 300D);
-        assertThat(bank.findByRequisite(user.getPassport(), "113").getBalance()).isEqualTo(50D);
+        assertThat(bank.findByRequisite(user.getPassport(), "113")).isPresent();
+        assertThat(bank.findByRequisite(user.getPassport(), "113").get().getBalance()).isEqualTo(50D);
     }
 
     @Test
@@ -139,6 +146,7 @@ class BankServiceTest {
         bank.addAccount(user.getPassport(), new Account("5546", 150D));
         bank.addAccount(user.getPassport(), new Account("113", 50D));
         bank.transferMoney(user.getPassport(), "5546", user.getPassport(), "1131", 150D);
-        assertThat(bank.findByRequisite(user.getPassport(), "5546").getBalance()).isEqualTo(150D);
+        assertThat(bank.findByRequisite(user.getPassport(), "5546")).isPresent();
+        assertThat(bank.findByRequisite(user.getPassport(), "5546").get().getBalance()).isEqualTo(150D);
     }
 }
