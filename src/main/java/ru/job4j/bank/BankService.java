@@ -66,13 +66,12 @@ public class BankService {
      * @return Optional of User type or Optional.empty()
      */
     public Optional<User> findByPassport(String passport) {
-        Optional<User> result = Optional.empty();
         for (User user : users.keySet()) {
             if (user.getPassport().equals(passport)) {
                 return Optional.of(user);
             }
         }
-        return result;
+        return Optional.empty();
     }
 
     /**
