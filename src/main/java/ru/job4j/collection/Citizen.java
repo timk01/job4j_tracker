@@ -1,6 +1,7 @@
 package ru.job4j.collection;
 
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public class Citizen {
     private String passport;
@@ -34,5 +35,13 @@ public class Citizen {
     @Override
     public int hashCode() {
         return Objects.hash(passport);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Citizen.class.getSimpleName() + "[", "]")
+                .add("passport='" + passport + "'")
+                .add("username='" + username + "'")
+                .toString();
     }
 }
