@@ -20,14 +20,13 @@ public class PassportOfficeWithComputeIfAbsent {
         String passport = citizen.getPassport();
         Citizen oldCitizen = citizens.get(passport);
         boolean rsl = false;
-        Citizen citizen1 = null;
         if (oldCitizen == null) {
             Map<String, Citizen> citizensCopy = new HashMap<>(citizens);
-            citizen1 = citizensCopy
+            citizensCopy
                     .computeIfAbsent(passport, key -> citizens.put(passport, citizen));
             rsl = true;
         }
-        return !Objects.equals(citizen1, oldCitizen);
+        return rsl;
     }
 
     public Citizen get(String passport) {
