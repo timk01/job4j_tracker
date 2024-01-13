@@ -9,7 +9,8 @@ class PassportOfficeWithComputeIfAbsentTest {
     public void whenTestAddMethod() {
         Citizen citizen = new Citizen("2f44a", "Petr Arsentev");
         PassportOfficeWithComputeIfAbsent office = new PassportOfficeWithComputeIfAbsent();
-        office.add(citizen);
+        boolean result = office.add(citizen);
+        assertThat(result).isTrue();
         assertThat(office.get(citizen.getPassport())).isEqualTo(citizen);
     }
 
