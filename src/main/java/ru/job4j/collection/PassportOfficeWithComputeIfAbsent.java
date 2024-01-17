@@ -18,9 +18,7 @@ public class PassportOfficeWithComputeIfAbsent {
 
     public boolean add(Citizen citizen) {
         String passport = citizen.getPassport();
-        boolean checkCurrCitizen = !citizens.containsKey(passport);
-        citizens.putIfAbsent(passport, citizen);
-        return checkCurrCitizen;
+        return  citizens.putIfAbsent(passport, citizen) == null;
     }
 
     public Citizen get(String passport) {
