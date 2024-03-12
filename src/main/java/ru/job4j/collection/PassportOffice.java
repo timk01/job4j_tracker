@@ -34,6 +34,5 @@ public class PassportOffice {
         office.citizens
                 .entrySet()
                 .forEach((entry) -> System.out.println("key " + entry.getKey() + " value " + entry.getValue()));
-        //citizens.merge()
     }
 }
