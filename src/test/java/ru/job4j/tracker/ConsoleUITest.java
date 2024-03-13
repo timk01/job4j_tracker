@@ -7,6 +7,7 @@ import ru.job4j.tracker.input.StubInput;
 import ru.job4j.tracker.output.Output;
 import ru.job4j.tracker.output.StubOutput;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,58 +20,58 @@ public class ConsoleUITest {
         Input in = new StubInput(
                 new String[]{"0", "Item name", "1"}
         );
-        Tracker tracker = new Tracker();
+        Store memTracker = new MemTracker();
         List<UserAction> actions = List.of(
-                new CreateItem(in, out, tracker),
+                new CreateItem(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
-        assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
+        assertThat(memTracker.findAll().get(0).getName()).isEqualTo("Item name");
     }
 
     @Test
     public void whenEditItem() {
-        Tracker tracker = new Tracker();
+        Store memTracker = new MemTracker();
         Item oldItem = new Item("old item");
-        tracker.add(oldItem);
+        memTracker.add(oldItem);
         String replacedItem = "replaced item";
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(oldItem.getId()), replacedItem, "1"}
         );
         List<UserAction> actions = List.of(
-                new EditItem(in, out, tracker),
+                new EditItem(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
-        assertThat(tracker.findById(oldItem.getId()).getName()).isEqualTo(replacedItem);
+        assertThat(memTracker.findById(oldItem.getId()).getName()).isEqualTo(replacedItem);
     }
 
     @Test
     public void whenNothingToEdit() {
-        Tracker tracker = new Tracker();
+        Store memTracker = new MemTracker();
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[]{"0", "1", "replaced item", "1"}
         );
         List<UserAction> actions = List.of(
-                new EditItem(in, out, tracker),
+                new EditItem(in, out, memTracker),
                 new ExitProgram(out)
         );
-        List<Item> items = tracker.findAll();
+        List<Item> items = memTracker.findAll();
         assertThat(items).isEmpty();
         new ConsoleUI(in, out, actions).run();
-        items = tracker.findAll();
+        items = memTracker.findAll();
         assertThat(items).isEmpty();
-        Item item = tracker.findById(1);
+        Item item = memTracker.findById(1);
         assertThat(item).isNull();
     }
 
     @Test
     public void whenEditItemWithWrongId() {
-        Tracker tracker = new Tracker();
+        Store memTracker = new MemTracker();
         Item oldItem = new Item("old item");
-        tracker.add(oldItem);
+        memTracker.add(oldItem);
         Item replacedItem = new Item("replaced item");
         int replacedItemId = 1000;
         Output out = new StubOutput();
@@ -78,67 +79,67 @@ public class ConsoleUITest {
                 new String[]{"0", String.valueOf(replacedItemId), replacedItem.getName(), "1"}
         );
         List<UserAction> actions = List.of(
-                new EditItem(in, out, tracker),
+                new EditItem(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
-        replacedItem = tracker.findById(replacedItemId);
+        replacedItem = memTracker.findById(replacedItemId);
         assertThat(replacedItem).isNull();
-        assertThat(tracker.findById(oldItem.getId()).getName()).isEqualTo(oldItem.getName());
+        assertThat(memTracker.findById(oldItem.getId()).getName()).isEqualTo(oldItem.getName());
     }
 
     @Test
     public void whenDeleteItem() {
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("Old item"));
+        Store memTracker = new MemTracker();
+        Item item = memTracker.add(new Item("Old item"));
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(item.getId()), "1"}
         );
         List<UserAction> actions = List.of(
-                new DeleteItem(in, out, tracker),
+                new DeleteItem(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
-        assertThat(tracker.findById(item.getId())).isNull();
+        assertThat(memTracker.findById(item.getId())).isNull();
     }
 
     @Test
     public void whenNothingToDelete() {
-        Tracker tracker = new Tracker();
+        Store memTracker = new MemTracker();
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[]{"0", "1", "1"}
         );
         List<UserAction> actions = List.of(
-                new DeleteItem(in, out, tracker),
+                new DeleteItem(in, out, memTracker),
                 new ExitProgram(out)
         );
-        List<Item> items = tracker.findAll();
+        List<Item> items = memTracker.findAll();
         assertThat(items).isEmpty();
         new ConsoleUI(in, out, actions).run();
-        items = tracker.findAll();
+        items = memTracker.findAll();
         assertThat(items).isEmpty();
-        assertThat(tracker.findById(1)).isNull();
+        assertThat(memTracker.findById(1)).isNull();
     }
 
     @Test
     public void whenDeleteItemWithWrongId() {
-        Tracker tracker = new Tracker();
-        Item item = tracker.add(new Item("Old item"));
+        Store memTracker = new MemTracker();
+        Item item = memTracker.add(new Item("Old item"));
         int deletedItemId = 1000;
         Output out = new StubOutput();
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(deletedItemId), "1"}
         );
         List<UserAction> actions = List.of(
-                new DeleteItem(in, out, tracker),
+                new DeleteItem(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
-        assertThat(tracker.findAll()).isNotEmpty();
-        assertThat(tracker.findById(1000)).isNull();
-        assertThat(tracker.findById(item.getId()).getName()).isEqualTo(item.getName());
+        assertThat(memTracker.findAll()).isNotEmpty();
+        assertThat(memTracker.findById(1000)).isNull();
+        assertThat(memTracker.findById(item.getId()).getName()).isEqualTo(item.getName());
     }
 
     @Test
@@ -161,15 +162,15 @@ public class ConsoleUITest {
 
     @Test
     public void whenReplaceItemTestOutputIsSuccessfully() {
-        Tracker tracker = new Tracker();
-        Item one = tracker.add(new Item("test1"));
+        Store memTracker = new MemTracker();
+        Item one = memTracker.add(new Item("test1"));
         String replaceName = "New Test Name";
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(one.getId()), replaceName, "1"}
         );
         Output out = new StubOutput();
         List<UserAction> actions = List.of(
-                new EditItem(in, out, tracker),
+                new EditItem(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
@@ -189,15 +190,15 @@ public class ConsoleUITest {
 
     @Test
     public void whenShowAllItemsItemTestOutputIsSuccessfully() {
-        Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("first item"));
-        Item second = tracker.add(new Item("second item"));
+        Store memTracker = new MemTracker();
+        Item first = memTracker.add(new Item("first item"));
+        Item second = memTracker.add(new Item("second item"));
         Input in = new StubInput(
                 new String[]{"0", "1"}
         );
         Output out = new StubOutput();
         List<UserAction> actions = List.of(
-                new ShowAllItems(out, tracker),
+                new ShowAllItems(out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
@@ -218,13 +219,13 @@ public class ConsoleUITest {
 
     @Test
     public void whenNoItemsToShowTestOutputIsSuccessfully() {
-        Tracker tracker = new Tracker();
+        Store memTracker = new MemTracker();
         Input in = new StubInput(
                 new String[]{"0", "1"}
         );
         Output out = new StubOutput();
         List<UserAction> actions = List.of(
-                new ShowAllItems(out, tracker),
+                new ShowAllItems(out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
@@ -244,14 +245,14 @@ public class ConsoleUITest {
 
     @Test
     public void whenFindItemByIdTestOutputIsSuccessfully() {
-        Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("first item"));
+        Store memTracker = new MemTracker();
+        Item first = memTracker.add(new Item("first item"));
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(first.getId()), "1"}
         );
         Output out = new StubOutput();
         List<UserAction> actions = List.of(
-                new FindItemById(in, out, tracker),
+                new FindItemById(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
@@ -271,15 +272,15 @@ public class ConsoleUITest {
 
     @Test
     public void whenNoItemIsFoundByIdIdTestOutputIsSuccessfully() {
-        Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("first item"));
+        Store memTracker = new MemTracker();
+        Item first = memTracker.add(new Item("first item"));
         int searchId = 1000;
         Input in = new StubInput(
                 new String[]{"0", String.valueOf(searchId), "1"}
         );
         Output out = new StubOutput();
         List<UserAction> actions = List.of(
-                new FindItemById(in, out, tracker),
+                new FindItemById(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
@@ -299,16 +300,16 @@ public class ConsoleUITest {
 
     @Test
     public void whenFindItemsByNameTestOutputIsSuccessfully() {
-        Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("first item"));
-        Item second = tracker.add(new Item("first item"));
-        Item third = tracker.add(new Item("another item"));
+        Store memTracker = new MemTracker();
+        Item first = memTracker.add(new Item("first item"));
+        Item second = memTracker.add(new Item("first item"));
+        Item third = memTracker.add(new Item("another item"));
         Input in = new StubInput(
                 new String[]{"0", first.getName(), "1"}
         );
         Output out = new StubOutput();
         List<UserAction> actions = List.of(
-                new FindItemsByName(in, out, tracker),
+                new FindItemsByName(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();
@@ -329,17 +330,17 @@ public class ConsoleUITest {
 
     @Test
     public void whenNoItemsAreFoundByNameTestOutputIsSuccessfully() {
-        Tracker tracker = new Tracker();
-        Item first = tracker.add(new Item("first item"));
-        Item second = tracker.add(new Item("first item"));
-        Item third = tracker.add(new Item("another item"));
+        Store memTracker = new MemTracker();
+        Item first = memTracker.add(new Item("first item"));
+        Item second = memTracker.add(new Item("first item"));
+        Item third = memTracker.add(new Item("another item"));
         Item fourthNotAdded = new Item("another one item");
         Input in = new StubInput(
                 new String[]{"0", fourthNotAdded.getName(), "1"}
         );
         Output out = new StubOutput();
         List<UserAction> actions = List.of(
-                new FindItemsByName(in, out, tracker),
+                new FindItemsByName(in, out, memTracker),
                 new ExitProgram(out)
         );
         new ConsoleUI(in, out, actions).run();

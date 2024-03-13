@@ -44,17 +44,22 @@ public class ConsoleUI {
 
     public static void main(String[] args) {
         Output output = new ConsoleOutput();
-        Input input = new ValidateInput(output, new ConsoleInput());
-        Tracker tracker = new Tracker();
-        List<UserAction> actions = List.of(
-                new CreateItem(input, output, tracker),
-                new ShowAllItems(output, tracker),
-                new EditItem(input, output, tracker),
-                new DeleteItem(input, output, tracker),
-                new FindItemById(input, output, tracker),
-                new FindItemsByName(input, output, tracker),
-                new ExitProgram(output)
+        Input input = new ValidateInput(
+                output, new ConsoleInput()
         );
-        new ConsoleUI(input, output, actions).run();
+        try (Store tracker = new SqlTracker()) {
+            List<UserAction> actions = List.of(
+                    new CreateItem(input, output, tracker),
+                    new ShowAllItems(output, tracker),
+                    new EditItem(input, output, tracker),
+                    new DeleteItem(input, output, tracker),
+                    new FindItemById(input, output, tracker),
+                    new FindItemsByName(input, output, tracker),
+                    new ExitProgram(output)
+            );
+            new ConsoleUI(input, output, actions).run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

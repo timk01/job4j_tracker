@@ -1,12 +1,25 @@
 package ru.job4j.tracker;
 
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Properties;
 
-public class Tracker {
+public class MemTracker implements Store {
     private final List<Item> items = new ArrayList<>();
     private int ids = 1;
+
+    /**
+     * method actually doesn't implement anything (to be refactored)
+     * @throws SQLException
+     */
+    @Override
+    public void close() throws SQLException {
+    }
 
     public Item add(Item item) {
         item.setId(ids++);

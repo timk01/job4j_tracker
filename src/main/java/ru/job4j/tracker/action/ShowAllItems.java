@@ -1,7 +1,8 @@
 package ru.job4j.tracker.action;
 
 import ru.job4j.tracker.Item;
-import ru.job4j.tracker.Tracker;
+import ru.job4j.tracker.MemTracker;
+import ru.job4j.tracker.Store;
 import ru.job4j.tracker.output.Output;
 
 import java.util.List;
@@ -9,11 +10,11 @@ import java.util.List;
 public class ShowAllItems implements UserAction {
 
     private final Output out;
-    private final Tracker tracker;
+    private final Store memTracker;
 
-    public ShowAllItems(Output out, Tracker tracker) {
+    public ShowAllItems(Output out, Store memTracker) {
         this.out = out;
-        this.tracker = tracker;
+        this.memTracker = memTracker;
     }
 
     @Override
@@ -24,7 +25,7 @@ public class ShowAllItems implements UserAction {
     @Override
     public boolean execute() {
         out.println("=== Show all items ===");
-        List<Item> items = tracker.findAll();
+        List<Item> items = memTracker.findAll();
         if (!items.isEmpty()) {
             for (Item item : items) {
                 out.println(item);
