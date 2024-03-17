@@ -26,13 +26,12 @@ public class SqlTracker implements Store {
                 .getResourceAsStream("db/liquibase.properties")) {
             Properties config = new Properties();
             config.load(input);
-            Class.forName(config.getProperty("driver-class-name"));
             connection = DriverManager.getConnection(
                     config.getProperty("url"),
                     config.getProperty("username"),
                     config.getProperty("password")
             );
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             throw new IllegalStateException(e);
         } catch (SQLException e) {
             e.printStackTrace();
