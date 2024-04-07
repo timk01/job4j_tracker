@@ -47,7 +47,7 @@ public class ConsoleUI {
         Input input = new ValidateInput(
                 output, new ConsoleInput()
         );
-        try (Store tracker = new SqlTracker()) {
+        try (Store tracker = new MemTracker()) {
             List<UserAction> actions = List.of(
                     new CreateItem(input, output, tracker),
                     new ShowAllItems(output, tracker),
@@ -55,6 +55,8 @@ public class ConsoleUI {
                     new DeleteItem(input, output, tracker),
                     new FindItemById(input, output, tracker),
                     new FindItemsByName(input, output, tracker),
+                    new CreateManyItems(input, output, tracker),
+                    new DeleteAllItems(input, output, tracker),
                     new ExitProgram(output)
             );
             new ConsoleUI(input, output, actions).run();
