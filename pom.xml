@@ -85,6 +85,7 @@
                     <toolchains>
                         <jdk>
                             <version>17</version>
+                            <vendor>liberica</vendor>
                         </jdk>
                     </toolchains>
                 </configuration>
